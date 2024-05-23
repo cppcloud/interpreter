@@ -14,6 +14,7 @@ pub enum TokenKind {
 
     Ident,
     Int,
+    String,
 
     Assign,
     Plus,
@@ -24,7 +25,6 @@ pub enum TokenKind {
 
     Lt,
     Gt,
-
     Eq,
     NotEq,
 
@@ -46,49 +46,49 @@ pub enum TokenKind {
     If,
     Else,
     Return,
-    String,
 }
 
 impl Display for TokenKind {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        use TokenKind::*;
         match self {
-            TokenKind::Illegal => write!(f, "Illegal"),
-            TokenKind::Eof => write!(f, "Eof"),
-            TokenKind::Ident => write!(f, "Ident"),
-            TokenKind::Int => write!(f, "Int"),
-            TokenKind::Assign => write!(f, "="),
-            TokenKind::Plus => write!(f, "+"),
-            TokenKind::Comma => write!(f, ","),
-            TokenKind::Semicolon => write!(f, ";"),
-            TokenKind::Lparen => write!(f, "("),
-            TokenKind::Rparen => write!(f, ")"),
-            TokenKind::Lbrace => write!(f, "{{"),
-            TokenKind::Rbrace => write!(f, "}}"),
-            TokenKind::Function => write!(f, "Function"),
-            TokenKind::Let => write!(f, "Let"),
-            TokenKind::Minus => write!(f, "-"),
-            TokenKind::Slash => write!(f, "/"),
-            TokenKind::Bang => write!(f, "!"),
-            TokenKind::Asterisk => write!(f, "*"),
-            TokenKind::Lt => write!(f, "<"),
-            TokenKind::Gt => write!(f, ">"),
-            TokenKind::True => write!(f, "true"),
-            TokenKind::False => write!(f, "false"),
-            TokenKind::If => write!(f, "if"),
-            TokenKind::Else => write!(f, "else"),
-            TokenKind::Return => write!(f, "return"),
-            TokenKind::Eq => write!(f, "=="),
-            TokenKind::NotEq => write!(f, "!="),
-            TokenKind::String => write!(f, "String"),
-            TokenKind::Lbracket => write!(f, "["),
-            TokenKind::Rbracket => write!(f, "]"),
-            TokenKind::Colon => write!(f, ":"),
+            Illegal => write!(f, "Illegal"),
+            Eof => write!(f, "Eof"),
+            Ident => write!(f, "Ident"),
+            Int => write!(f, "Int"),
+            String => write!(f, "String"),
+            Assign => write!(f, "="),
+            Plus => write!(f, "+"),
+            Minus => write!(f, "-"),
+            Bang => write!(f, "!"),
+            Asterisk => write!(f, "*"),
+            Slash => write!(f, "/"),
+            Lt => write!(f, "<"),
+            Gt => write!(f, ">"),
+            Eq => write!(f, "=="),
+            NotEq => write!(f, "!="),
+            Comma => write!(f, ","),
+            Semicolon => write!(f, ";"),
+            Colon => write!(f, ":"),
+            Lparen => write!(f, "("),
+            Rparen => write!(f, ")"),
+            Lbrace => write!(f, "{{"),
+            Rbrace => write!(f, "}}"),
+            Lbracket => write!(f, "["),
+            Rbracket => write!(f, "]"),
+            Function => write!(f, "fn"),
+            Let => write!(f, "let"),
+            True => write!(f, "true"),
+            False => write!(f, "false"),
+            If => write!(f, "if"),
+            Else => write!(f, "else"),
+            Return => write!(f, "return"),
         }
     }
 }
 
-pub fn lookup_ident(identifier: &String) -> TokenKind {
-    match identifier.as_str() {
+pub fn lookup_ident(identifier: &str) -> TokenKind {
+    match identifier {
         "fn" => TokenKind::Function,
         "let" => TokenKind::Let,
         "true" => TokenKind::True,
